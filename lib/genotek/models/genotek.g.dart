@@ -6,8 +6,9 @@ part of 'genotek.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-GenotekPackageData _$GenotekPackageDataFromJson(Map<String, dynamic> json) =>
-    GenotekPackageData(
+GenotekPackagePriceData _$GenotekPackagePriceDataFromJson(
+        Map<String, dynamic> json) =>
+    GenotekPackagePriceData(
       name: json['name'] as String?,
       price: (json['price'] as num?)?.toInt(),
       startPrice: (json['startPrice'] as num?)?.toInt(),
@@ -15,7 +16,8 @@ GenotekPackageData _$GenotekPackageDataFromJson(Map<String, dynamic> json) =>
       discountState: json['discountState'] as bool?,
     );
 
-Map<String, dynamic> _$GenotekPackageDataToJson(GenotekPackageData instance) =>
+Map<String, dynamic> _$GenotekPackagePriceDataToJson(
+        GenotekPackagePriceData instance) =>
     <String, dynamic>{
       'name': instance.name,
       'price': instance.price,
@@ -24,27 +26,24 @@ Map<String, dynamic> _$GenotekPackageDataToJson(GenotekPackageData instance) =>
       'discountState': instance.discountState,
     };
 
-GenotekItemData _$GenotekItemDataFromJson(Map<String, dynamic> json) =>
-    GenotekItemData(
-      packagesMap: (json['packagesMap'] as Map<String, dynamic>?)?.map(
-        (k, e) =>
-            MapEntry(k, GenotekPackageData.fromJson(e as Map<String, dynamic>)),
-      ),
-    );
-
-Map<String, dynamic> _$GenotekItemDataToJson(GenotekItemData instance) =>
-    <String, dynamic>{
-      'packagesMap': instance.packagesMap,
-    };
-
 GenotekData _$GenotekDataFromJson(Map<String, dynamic> json) => GenotekData(
-      itemsMap: (json['itemsMap'] as Map<String, dynamic>?)?.map(
-        (k, e) =>
-            MapEntry(k, GenotekItemData.fromJson(e as Map<String, dynamic>)),
+      genetics: (json['genetics'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(
+            k, GenotekPackagePriceData.fromJson(e as Map<String, dynamic>)),
+      ),
+      premium: (json['premium'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(
+            k, GenotekPackagePriceData.fromJson(e as Map<String, dynamic>)),
+      ),
+      diagnostic: (json['diagnostic'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(
+            k, GenotekPackagePriceData.fromJson(e as Map<String, dynamic>)),
       ),
     );
 
 Map<String, dynamic> _$GenotekDataToJson(GenotekData instance) =>
     <String, dynamic>{
-      'itemsMap': instance.itemsMap,
+      'genetics': instance.genetics,
+      'premium': instance.premium,
+      'diagnostic': instance.diagnostic,
     };

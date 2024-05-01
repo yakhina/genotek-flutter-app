@@ -1,4 +1,5 @@
 import 'dart:core';
+import 'package:genotek/genotek/models/genotek.dart';
 import 'package:genotek/repositories/models/genotek_dto.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';

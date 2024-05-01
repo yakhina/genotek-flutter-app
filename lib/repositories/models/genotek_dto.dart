@@ -23,48 +23,41 @@ enum HTTPMethod {
   delete;
 }
 
-@JsonSerializable()
-class GenotekPackageDataDTO {
-  final String name;
-  final int price;
-  final int startPrice;
-  final int discountPrice;
-  final bool discountState;
+@JsonSerializable(includeIfNull: true)
+class GenotekPackagePriceDataDTO {
+  final String? name;
+  final int? price;
+  final int? startPrice;
+  final int? discountPrice;
+  final bool? discountState;
 
-  GenotekPackageDataDTO({
-    required this.name,
-    required this.price,
-    required this.startPrice,
-    required this.discountPrice,
-    required this.discountState,
+  GenotekPackagePriceDataDTO({
+    this.name,
+    this.price,
+    this.startPrice,
+    this.discountPrice,
+    this.discountState,
   });
 
-  factory GenotekPackageDataDTO.fromJson(Map<String, dynamic> json) =>
-      _$GenotekPackageDataDTOFromJson(json);
-  Map<String, dynamic> toJson() => _$GenotekPackageDataDTOToJson(this);
+  factory GenotekPackagePriceDataDTO.fromJson(Map<String, dynamic> json) =>
+      _$GenotekPackagePriceDataDTOFromJson(json);
+  Map<String, dynamic> toJson() => _$GenotekPackagePriceDataDTOToJson(this);
 }
 
-@JsonSerializable()
-class GenotekItemDataDTO {
-  final Map<String, GenotekPackageDataDTO>? packagesMap;
-
-  GenotekItemDataDTO({
-    this.packagesMap,
-  });
-
-  factory GenotekItemDataDTO.fromJson(Map<String, dynamic> json) =>
-      _$GenotekItemDataDTOFromJson(json);
-  Map<String, dynamic> toJson() => _$GenotekItemDataDTOToJson(this);
-}
-
-@JsonSerializable()
+@JsonSerializable(includeIfNull: true)
 class GenotekDataDTO {
-  final Map<String, GenotekItemDataDTO>? itemsMap;
+  final Map<String, GenotekPackagePriceDataDTO>? genetics;
+  final Map<String, GenotekPackagePriceDataDTO>? diagnostic;
+  final Map<String, GenotekPackagePriceDataDTO>? premium;
 
   GenotekDataDTO({
-    this.itemsMap,
+    this.genetics,
+    this.diagnostic,
+    this.premium,
   });
 
   factory GenotekDataDTO.fromJson(Map<String, dynamic> json) => _$GenotekDataDTOFromJson(json);
+
+  get itemsMap => null;
   Map<String, dynamic> toJson() => _$GenotekDataDTOToJson(this);
 }

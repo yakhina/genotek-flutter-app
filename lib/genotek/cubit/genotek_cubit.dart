@@ -18,7 +18,7 @@ class GenotekCubit extends Cubit<GenotekState> {
   void init() {
     emit(GenotekState(genotekData: data, status: GenotekStatus.initial));
     debugPrint("Genotek: GenotekCubit emit .initial: $data");
-    _genotekRepository.refresh();
+    refresh();
     AppLifecycleListener(onResume: () => refresh(), onStateChange: refreshAppState);
   }
 

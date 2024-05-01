@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:equatable/equatable.dart';
 import 'package:genotek/repositories/models/models.dart';
@@ -5,8 +6,8 @@ import 'package:genotek/repositories/models/models.dart';
 part 'genotek.g.dart';
 
 @JsonSerializable()
-class GenotekPackageData extends Equatable {
-  const GenotekPackageData({
+class GenotekPackagePriceData extends Equatable {
+  const GenotekPackagePriceData({
     required this.name,
     required this.price,
     required this.startPrice,
@@ -20,7 +21,7 @@ class GenotekPackageData extends Equatable {
   final int? discountPrice;
   final bool? discountState;
 
-  static const defaultGenotekData = GenotekPackageData(
+  static const defaultGenotekData = GenotekPackagePriceData(
     name: null,
     price: null,
     startPrice: null,
@@ -28,8 +29,8 @@ class GenotekPackageData extends Equatable {
     discountState: null,
   );
 
-  factory GenotekPackageData.fromRepository(GenotekPackageDataDTO genotekPackageDataDTO) {
-    return GenotekPackageData(
+  factory GenotekPackagePriceData.fromRepository(GenotekPackagePriceDataDTO genotekPackageDataDTO) {
+    return GenotekPackagePriceData(
       name: genotekPackageDataDTO.name,
       price: genotekPackageDataDTO.price,
       startPrice: genotekPackageDataDTO.startPrice,
@@ -38,56 +39,44 @@ class GenotekPackageData extends Equatable {
     );
   }
 
-  factory GenotekPackageData.fromJson(Map<String, dynamic> json) =>
-      _$GenotekPackageDataFromJson(json);
-  Map<String, dynamic> toJson() => _$GenotekPackageDataToJson(this);
+  factory GenotekPackagePriceData.fromJson(Map<String, dynamic> json) =>
+      _$GenotekPackagePriceDataFromJson(json);
+  Map<String, dynamic> toJson() => _$GenotekPackagePriceDataToJson(this);
 
   @override
   List<Object?> get props => [name, price, startPrice, discountPrice, discountState];
 }
 
 @JsonSerializable()
-class GenotekItemData extends Equatable {
-  const GenotekItemData({
-    this.packagesMap,
-  });
-
-  final Map<String, GenotekPackageData>? packagesMap;
-
-  static const defaultGenotekData = GenotekItemData(packagesMap: null);
-
-  factory GenotekItemData.fromRepository(GenotekItemDataDTO genotekItemDataDTO) {
-    return GenotekItemData(
-        packagesMap: genotekItemDataDTO.packagesMap
-            ?.map((key, value) => MapEntry(key, GenotekPackageData.fromRepository(value))));
-  }
-
-  factory GenotekItemData.fromJson(Map<String, dynamic> json) => _$GenotekItemDataFromJson(json);
-  Map<String, dynamic> toJson() => _$GenotekItemDataToJson(this);
-
-  @override
-  List<Object?> get props => [packagesMap];
-}
-
-@JsonSerializable()
 class GenotekData extends Equatable {
   const GenotekData({
-    this.itemsMap,
+    this.genetics,
+    this.premium,
+    this.diagnostic,
   });
 
-  final Map<String, GenotekItemData>? itemsMap;
+  final Map<String, GenotekPackagePriceData>? genetics;
+  final Map<String, GenotekPackagePriceData>? premium;
+  final Map<String, GenotekPackagePriceData>? diagnostic;
 
-  static const defaultGenotekData = GenotekData(itemsMap: null);
+  static const defaultGenotekData = GenotekData(genetics: null, premium: null, diagnostic: null);
 
   factory GenotekData.fromRepository(GenotekDataDTO genotekDataDTO) {
+    debugPrint("GenotekData fromRepository genotekDataDTO: ${genotekDataDTO.genetics}");
+    debugPrint("GenotekData fromRepository genotekDataDTO: ${genotekDataDTO.premium}");
+    debugPrint("GenotekData fromRepository genotekDataDTO: ${genotekDataDTO.diagnostic}");
     return GenotekData(
-        itemsMap: genotekDataDTO.itemsMap
-            ?.map((key, value) => MapEntry(key, GenotekItemData.fromRepository(value))));
+        genetics: genotekDataDTO.genetics
+            ?.map((key, value) => MapEntry(key, GenotekPackagePriceData.fromRepository(value))),
+        premium: genotekDataDTO.premium
+            ?.map((key, value) => MapEntry(key, GenotekPackagePriceData.fromRepository(value))),
+        diagnostic: genotekDataDTO.diagnostic
+            ?.map((key, value) => MapEntry(key, GenotekPackagePriceData.fromRepository(value))));
   }
 
   factory GenotekData.fromJson(Map<String, dynamic> json) => _$GenotekDataFromJson(json);
   Map<String, dynamic> toJson() => _$GenotekDataToJson(this);
 
   @override
-  List<Object?> get props => [itemsMap];
+  List<Object?> get props => [genetics, premium, diagnostic];
 }
