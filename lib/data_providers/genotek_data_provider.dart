@@ -1,5 +1,4 @@
 import 'dart:core';
-import 'package:genotek/genotek/models/genotek.dart';
 import 'package:genotek/repositories/models/genotek_dto.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
@@ -19,10 +18,8 @@ class GenotekDataProvider {
 
     if (responseData.statusCode == 200 && responseData.data != null) {
       debugPrint('Genotek: get prices responseData statusCode ${responseData.statusCode}');
-      debugPrint('Genotek: get prices responseData $responseData');
       debugPrint('Genotek: get prices responseData data ${responseData.data}');
       GenotekDataDTO parsedData = GenotekDataDTO.fromJson(responseData.data);
-      debugPrint('Genotek: get prices parsedData $parsedData');
       return parsedData;
     } else {
       debugPrint('Genotek: get prices statusCode ${responseData.statusCode}');

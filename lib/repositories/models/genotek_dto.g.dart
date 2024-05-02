@@ -32,11 +32,11 @@ GenotekDataDTO _$GenotekDataDTOFromJson(Map<String, dynamic> json) =>
         (k, e) => MapEntry(
             k, GenotekPackagePriceDataDTO.fromJson(e as Map<String, dynamic>)),
       ),
-      premium: (json['premium'] as Map<String, dynamic>?)?.map(
+      diagnostic: (json['diagnostic'] as Map<String, dynamic>?)?.map(
         (k, e) => MapEntry(
             k, GenotekPackagePriceDataDTO.fromJson(e as Map<String, dynamic>)),
       ),
-      diagnostic: (json['diagnostic'] as Map<String, dynamic>?)?.map(
+      premium: (json['premium'] as Map<String, dynamic>?)?.map(
         (k, e) => MapEntry(
             k, GenotekPackagePriceDataDTO.fromJson(e as Map<String, dynamic>)),
       ),
@@ -45,6 +45,6 @@ GenotekDataDTO _$GenotekDataDTOFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$GenotekDataDTOToJson(GenotekDataDTO instance) =>
     <String, dynamic>{
       'genetics': instance.genetics,
-      'premium': instance.premium,
       'diagnostic': instance.diagnostic,
+      'premium': instance.premium,
     };
